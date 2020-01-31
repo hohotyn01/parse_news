@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>sample html</title>
+</head>
+<body>
+<ul>
+<?php foreach ($titles as $title): ?>
+    <li><?php echo mb_convert_encoding($title->nodeValue, 'Windows-1251'); ?>
+<?php endforeach; ?>
+</ul>
+</body>
+</html>
