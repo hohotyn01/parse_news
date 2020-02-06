@@ -4,32 +4,27 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once 'vendor/autoload.php';
-require_once 'app/sql/connect.php';
-require_once 'app/services/Date.php';
-require_once 'app/services/Result.php';
+require_once 'app/sql/Insert.php';
+require_once 'app/services/Parser.php';
 
-
-
-
-
-
-$page = file_get_contents('https://korrespondent.net/ajax/module.aspx?spm_id=1055&type=-1&IsAjax=true');
+$page = file_get_contents(
+    'https://korrespondent.net/ajax/module.aspx?spm_id=1055&type=-1&IsAjax=true'
+);
 
 $document = phpQuery::newDocument($page);
 
-$date = Date::takeDate($document);
+$dateElements = (
+    pq($document)
+        ->find('.time-articles')
+        ->find('.time-articles__date')
+);
 
-$next = pq($document)->find('.time-articles .time-articles__date')->nextAll();
-$prev = pq($document)->find('.time-articles .time-articles__date')->prevAll();
+$articles = Parser::getThemeDate($dateElements);
 
-$result_to_day = Result::takeResult($prev, $date['date_to_day']);
-$result_yesterday = Result::takeResult($next, $date['date_yesterday']);
+$response = insert::articles($articles);
 
 echo('<pre>');
-var_dump($result_to_day);
-echo "<hr>";
-var_dump($result_yesterday);
+var_dump($response);
 echo('</pre>');die();
-
 
 phpQuery::unloadDocuments();
