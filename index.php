@@ -24,7 +24,7 @@ $articles = Parser::getThemeDate($dateElements);
 $response = insert::articles($articles);
 
 echo('<pre>');
-var_dump($response);
-echo('</pre>');die();
+var_dump($articles);
+echo('</pre>');
 
 phpQuery::unloadDocuments();

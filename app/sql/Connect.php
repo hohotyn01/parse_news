@@ -2,7 +2,7 @@
 
 class Connect
 {
-    public static function mysqli()
+    public static function mysqli() :object
     {
         $mysqli = new mysqli("mysql", "root", "mayor", "parser");
 

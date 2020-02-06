@@ -57,7 +57,7 @@ class Insert
             return 'Inserting Database is seccessful';
         }
 
-            $mysqli->close($link);
+        $mysqli->close($link);
 
         return 'Error not valid encoding';
     }

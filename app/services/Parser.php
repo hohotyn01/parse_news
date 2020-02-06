@@ -2,9 +2,10 @@
 
 class Parser
 {
-    public static function getThemeDate($dateElements)
+    public static function getThemeDate(object $dateElements) :array
     {
         $dates = self::parseDate($dateElements);
+
         if(!is_array($dates) || empty($dates)){
             return [];
         }
@@ -29,12 +30,10 @@ class Parser
         }
         unset($date, $articles);
 
-        $articles = self::parseImage($time_title_link);
-
-        return $articles;
+        return self::parseImage($time_title_link);
     }
 
-    protected static function parseDate($dateElements)
+    protected static function parseDate(object $dateElements) :array
     {
         /* TODO: get Ukraine Time Zone and set Ukraine's today date! */
         $today = date('Y-m-d');
@@ -86,7 +85,7 @@ class Parser
         return $articles;
     }
 
-    protected static function image(string $link)
+    protected static function image(string $link) :string
     {
         $page = file_get_contents($link);
 
@@ -98,7 +97,7 @@ class Parser
     }
 
     //string $russString
-    public static function fromRussian($document)
+    public static function fromRussian(string $document) :string
     {
         return date('Y-m-d', /*!!!*/strtotime('yesterday'));
     }
